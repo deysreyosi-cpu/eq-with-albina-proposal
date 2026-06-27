@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EQ with Albina · Social Media Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   EDIT ME FIRST: design tokens. Change these to re-skin.
+   ============================================================ */
+:root{
+  --paper:#ffffff;       /* background        */
+  --ink:#0a0a0a;         /* text + hairlines  */
+  --accent:#FF7070;      /* coral accent      */
+  --muted:#6b6b6b;       /* secondary text    */
+  --line:#0a0a0a;        /* border color      */
+  --radius:14px;
+  --pad:clamp(18px, 4vw, 56px);   /* page side padding */
+  --font:'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font);
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.45;
+}
+a{color:inherit;text-decoration:none}
+
+/* ---- shared type ---- */
+.label{
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-weight:500;
+}
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+.serif{font-style:normal}
+
+.bleed{padding-left:var(--pad);padding-right:var(--pad)}
+.rule{border-top:1px solid var(--line)}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px var(--pad);
+  border-bottom:1px solid var(--line);
+}
+header .mark{font-weight:500;letter-spacing:-.01em;font-size:1.05rem}
+header .meta{display:flex;gap:22px;align-items:center}
+header .meta span{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em}
+header .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:8px;vertical-align:1px}
+@media(max-width:620px){header .meta .hide-sm{display:none}}
+
+/* ============================================================
+   TITLE BAND
+   ============================================================ */
+.titleband{border-bottom:1px solid var(--line);overflow:hidden}
+.titleband .tag{
+  display:inline-block;border:1px solid var(--line);border-radius:999px;
+  padding:5px 14px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  margin-bottom:clamp(20px,4vw,40px);
+}
+.titleband h1{
+  font-weight:500;
+  text-transform:uppercase;
+  font-size:clamp(2.6rem, 9vw, 8.2rem);
+  line-height:.92;
+  letter-spacing:-.025em;
+  padding-top:clamp(26px,4vw,46px);
+  padding-bottom:clamp(8px,1.5vw,18px);
+}
+.titleband .sub{
+  font-size:clamp(1rem,2vw,1.45rem);
+  font-weight:400;
+  padding-bottom:clamp(26px,4vw,48px);
+  max-width:42ch;
+}
+
+/* ============================================================
+   INTRO + SIDEBAR (project-content)
+   ============================================================ */
+.intro{
+  display:grid;
+  grid-template-columns:1.7fr 320px;
+  gap:clamp(28px,4vw,64px);
+  padding-top:clamp(40px,6vw,90px);
+  padding-bottom:clamp(40px,6vw,90px);
+}
+.intro .hook{
+  font-size:clamp(1.5rem,3.2vw,2.9rem);
+  font-weight:400;
+  line-height:1.12;
+  letter-spacing:-.015em;
+  max-width:18ch;
+}
+.intro .hook em{font-style:normal;color:var(--accent)}
+.card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px 22px 8px;
+  align-self:start;
+}
+.card .row{padding-bottom:16px;margin-bottom:4px}
+.card .row .label{display:block;margin-bottom:6px;color:var(--muted)}
+.card .row .val{font-size:.98rem;line-height:1.3}
+@media(max-width:820px){
+  .intro{grid-template-columns:1fr;}
+  .intro .hook{max-width:24ch}
+}
+
+/* ============================================================
+   MODULE SECTIONS  (label column + content column)
+   ============================================================ */
+.module{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:clamp(24px,4vw,56px);
+  padding-top:clamp(40px,5vw,80px);
+  padding-bottom:clamp(40px,5vw,80px);
+}
+.module > .head{align-self:start;position:sticky;top:90px}
+.module > .head .num{font-size:.72rem;letter-spacing:.16em;color:var(--accent)}
+.module > .head .name{
+  font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;
+  font-weight:500;margin-top:8px;line-height:1.15;
+}
+.module .statement{
+  font-size:clamp(1.5rem,3vw,2.5rem);
+  font-weight:400;line-height:1.14;letter-spacing:-.015em;
+  max-width:20ch;margin-bottom:clamp(28px,3vw,44px);
+}
+.module .statement em{font-style:normal;color:var(--accent)}
+.module .lede{font-size:1.05rem;max-width:60ch;color:var(--muted);margin-bottom:8px}
+@media(max-width:820px){
+  .module{grid-template-columns:1fr;gap:18px}
+  .module > .head{position:static}
+}
+
+/* ---- generic bordered grid of cards ---- */
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}
+.block{
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 20px 22px;
+}
+.block .bnum{font-size:.72rem;letter-spacing:.16em;color:var(--accent)}
+.block h3{font-size:1.12rem;font-weight:500;margin:10px 0 8px;letter-spacing:-.01em}
+.block p{font-size:.95rem;color:var(--muted);line-height:1.4}
+
+/* ---- KPI stat blocks ---- */
+.stat .num{font-size:clamp(2.2rem,4vw,3rem);font-weight:500;color:var(--accent);letter-spacing:-.02em;line-height:1}
+.stat .metric{font-size:.95rem;font-weight:500;margin:12px 0 6px;text-transform:uppercase;letter-spacing:.04em}
+.stat p{font-size:.9rem}
+
+/* ---- steps list ---- */
+.steps{border-top:1px solid var(--line)}
+.steps .step{
+  display:grid;grid-template-columns:64px 1fr;gap:18px;
+  padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline;
+}
+.steps .step .s-num{font-size:1.4rem;font-weight:500;color:var(--accent)}
+.steps .step h3{font-size:1.15rem;font-weight:500;letter-spacing:-.01em;margin-bottom:4px}
+.steps .step p{color:var(--muted);font-size:.97rem;max-width:60ch}
+@media(max-width:760px){.steps .step{grid-template-columns:48px 1fr;gap:12px}}
+
+/* ============================================================
+   INVESTMENT
+   ============================================================ */
+.invest{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+.invest .price{font-size:clamp(3.4rem,8vw,6rem);font-weight:500;color:var(--accent);letter-spacing:-.03em;line-height:.95}
+.invest .per{font-size:1rem;margin-top:14px}
+.invest .note{color:var(--muted);font-size:.97rem;margin-top:18px;max-width:42ch}
+.invest .inside{border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px}
+.invest .inside .label{color:var(--muted);display:block;margin-bottom:18px}
+.invest .inside ul{list-style:none}
+.invest .inside li{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:11px 0;border-top:1px solid #e7e7e7;font-size:1rem;
+}
+.invest .inside li:first-of-type{border-top:none;padding-top:0}
+.invest .inside li::before{content:"";flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:8px}
+@media(max-width:760px){.invest{grid-template-columns:1fr}}
+
+/* ============================================================
+   CLOSE + FOOTER
+   ============================================================ */
+.close{padding-top:clamp(60px,9vw,140px);padding-bottom:clamp(60px,9vw,140px);border-top:1px solid var(--line)}
+.close .big{font-size:clamp(2.8rem,8vw,6.5rem);font-weight:500;text-transform:uppercase;letter-spacing:-.025em;line-height:.95}
+.close .flow{font-size:clamp(1.05rem,2vw,1.5rem);color:var(--accent);margin-top:clamp(20px,3vw,36px);max-width:34ch;line-height:1.3}
+footer{
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  padding:22px var(--pad);font-size:.8rem;letter-spacing:.04em;
+}
+footer .muted{text-transform:uppercase;letter-spacing:.14em;font-size:.72rem}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="mark">EQ with Albina</div>
+  <div class="meta">
+    <span class="hide-sm muted">Social media proposal</span>
+    <span class="muted"><span class="dot"></span>2026</span>
+  </div>
+</header>
+
+<!-- ============ TITLE BAND ============ -->
+<section class="titleband bleed">
+  <span class="tag" style="margin-top:clamp(26px,4vw,46px)">Proposal</span>
+  <h1>EQ with<br>Albina</h1>
+  <p class="sub">A custom social media strategy &amp; execution, built to turn what you know into what people see.</p>
+</section>
+
+<!-- ============ INTRO + SIDEBAR ============ -->
+<section class="intro bleed">
+  <div class="hook reveal">
+    You already have everything to say. The missing piece is getting it in front of the right people. <em>Consistently, in a way that actually connects.</em>
+  </div>
+  <aside class="card reveal">
+    <div class="row">
+      <span class="label">Prepared for</span>
+      <div class="val">Albina Chettri · @eqwithalbina</div>
+    </div>
+    <div class="row">
+      <span class="label">Scope</span>
+      <div class="val">Strategy + execution / Instagram</div>
+    </div>
+    <div class="row">
+      <span class="label">Prepared by</span>
+      <div class="val">Sreyosi Dey</div>
+    </div>
+    <div class="row">
+      <span class="label">Date</span>
+      <div class="val">June 2026</div>
+    </div>
+  </aside>
+</section>
+
+<!-- ============ 01 · THE SITUATION ============ -->
+<section class="module bleed rule">
+  <div class="head">
+    <div class="num">01</div>
+    <div class="name">The situation</div>
+  </div>
+  <div class="body">
+    <h2 class="statement reveal">You've already done the hard part. <em>It just isn't reaching anyone yet.</em></h2>
+    <p class="lede reveal" style="margin-bottom:18px">Years of it: workshops, frameworks, notes, a whole way of teaching emotional intelligence. The substance has never been the problem.</p>
+    <p class="lede reveal" style="margin-bottom:34px">What's missing is a consistent way to share it: a regular rhythm on Instagram, so the right people can find your work and keep coming back.</p>
+    <div class="grid g3">
+      <div class="block reveal"><div class="bnum">→</div><h3>A system</h3><p>For turning what you know into what people see.</p></div>
+      <div class="block reveal"><div class="bnum">→</div><h3>A rhythm</h3><p>So showing up stops depending on motivation.</p></div>
+      <div class="block reveal"><div class="bnum">→</div><h3>A reason</h3><p>For the right people to keep coming back.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · HOW WE WORK ============ -->
+<section class="module bleed rule">
+  <div class="head">
+    <div class="num">02</div>
+    <div class="name">How we'll work</div>
+  </div>
+  <div class="body">
+    <h2 class="statement reveal">First we think. Then we build. <em>Then we show up.</em></h2>
+    <div class="steps reveal">
+      <div class="step"><div class="s-num">01</div><div><h3>Strategy session</h3><p>We sit down together. I learn how you think and what you're really here to say.</p></div></div>
+      <div class="step"><div class="s-num">02</div><div><h3>Creative brief</h3><p>A detailed, granular brief for you to work through, far more than a quick form. Your answers are what the whole strategy and plan get built on.</p></div></div>
+      <div class="step"><div class="s-num">03</div><div><h3>Research &amp; planning</h3><p>From your brief, I dig into your material, map who we're really talking to, and build the strategy.</p></div></div>
+      <div class="step"><div class="s-num">04</div><div><h3>The Notion dashboard</h3><p>I build your entire content world into one organised, living dashboard.</p></div></div>
+      <div class="step"><div class="s-num">05</div><div><h3>Approval</h3><p>The whole month's content gets laid out in the Notion board. You review it and sign off before anything goes live.</p></div></div>
+      <div class="step"><div class="s-num">06</div><div><h3>Execute</h3><p>Then the good part: showing up, consistently, like clockwork.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · WHAT YOU GET ============ -->
+<section class="module bleed rule">
+  <div class="head">
+    <div class="num">03</div>
+    <div class="name">What you get, every week</div>
+  </div>
+  <div class="body">
+    <h2 class="statement reveal">Three posts a week, <em>written, designed and edited to sound like you.</em></h2>
+    <div class="grid g3">
+      <div class="block reveal"><div class="bnum">A</div><h3>3 posts / week</h3><p>Reels and carousels, fully done: video editing, graphics, and captions written in your voice.</p></div>
+      <div class="block reveal"><div class="bnum">B</div><h3>Your Notion dashboard</h3><p>Every idea, draft and date in one place. Always current, so you always know what's next.</p></div>
+      <div class="block reveal"><div class="bnum">C</div><h3>Instagram first</h3><p>We plant the flag where your audience already is, build momentum, then expand from strength.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · THE NUMBERS ============ -->
+<section class="module bleed rule">
+  <div class="head">
+    <div class="num">04</div>
+    <div class="name">How we measure 'working'</div>
+  </div>
+  <div class="body">
+    <h2 class="statement reveal">We'll watch the things that <em>actually tell us it's working.</em></h2>
+    <p class="lede reveal" style="margin-bottom:30px">Your goals are awareness and real connection, so instead of follower counts and likes, we pay attention to whether the right people, the parents you want to reach, are finding you, and whether what they find is worth their time.</p>
+    <div class="grid g3">
+      <div class="block reveal"><div class="bnum">Awareness</div><h3>Reach &amp; non-follower reach</h3><p>The clearest sign awareness is growing: whether people beyond your existing circle are seeing your work, not just the ones already following.</p></div>
+      <div class="block reveal"><div class="bnum">Awareness</div><h3>Profile visits</h3><p>The step between seeing a post and deciding to follow. It shows when curiosity is turning into genuine interest.</p></div>
+      <div class="block reveal"><div class="bnum">Audience fit</div><h3>Geography &amp; age</h3><p>Since you want to reach a particular region and age group, we'll watch whether our content is actually getting to the right audience.</p></div>
+      <div class="block reveal"><div class="bnum">Connection</div><h3>Saves</h3><p>People keep what they want to return to. For teaching content, saves are a real signal it's useful, not just scrollable.</p></div>
+      <div class="block reveal"><div class="bnum">Connection</div><h3>Comments &amp; DMs</h3><p>Actual conversations. We watch these most closely, because connection is the point, not applause.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · THE INVESTMENT ============ -->
+<section class="module bleed rule">
+  <div class="head">
+    <div class="num">05</div>
+    <div class="name">The investment</div>
+  </div>
+  <div class="body">
+    <div class="invest">
+      <div class="reveal">
+        <div class="price">₹20,000</div>
+        <div class="per"><strong>per month</strong> &nbsp;·&nbsp; rolling, cancel anytime</div>
+        <p class="note">One flat monthly fee, with everything here included. No add-ons or surprises added later.</p>
+      </div>
+      <div class="inside reveal">
+        <span class="label">What's inside</span>
+        <ul>
+          <li>Strategy session + custom content strategy</li>
+          <li>Audience &amp; content research</li>
+          <li>In-depth creative brief</li>
+          <li>Your Notion dashboard, set up &amp; maintained</li>
+          <li>3 posts / week: editing, graphics, captions</li>
+          <li>Ongoing planning &amp; content organisation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE ============ -->
+<section class="close bleed">
+  <div class="reveal">
+    <div class="big">Ready when<br>you are.</div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div><strong>Sreyosi Dey</strong> &nbsp;·&nbsp; deysreyosi@gmail.com &nbsp;·&nbsp; @_sreyoside</div>
+  <div class="muted">EQ with Albina · Proposal 2026</div>
+</footer>
+
+<script>
+const io = new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
